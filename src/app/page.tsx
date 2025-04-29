@@ -1,103 +1,221 @@
-import Image from "next/image";
+"use client";
+import tracnghiem from "../constant/tracnghiem.json";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [B1, setB1] = useState<string>("");
+  const [B2, setB2] = useState<string>("");
+  const [B3, setB3] = useState<string>("");
+  const [B4, setB4] = useState<string>("");
+  const [B5, setB5] = useState<number>(0);
+  const [B6, setB6] = useState<string>("");
+  const [B7, setB7] = useState("");
+  // const [B8, setB8] = useState("");
+  // const [B9, setB9] = useState("");
+  // const [B10, setB10] = useState("");
+  // const [B11, setB11] = useState("");
+  // const [B12, setB12] = useState("");
+  // const [B13, setB13] = useState("");
+  // const [B14, setB14] = useState("");
+  // const [B15, setB15] = useState("");
+  // const [B16, setB16] = useState("");
+  // const [B17, setB17] = useState("");
+  // const [B18, setB18] = useState("");
+  // const [B19, setB19] = useState("");
+  // const [B20, setB20] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const Bai1 = (input: string) => {
+    const output: string[] = input.split("").reverse();
+    return output;
+  };
+  const Bai2 = (input: string) => {
+    let output: string = "false";
+    const a: string = input.split("").reverse().join("");
+    if (a == input) {
+      output = "true";
+    }
+    return output;
+  };
+  const Bai3 = (input: number[]) => {
+    const output: number[] = input.sort((a, b) => b - a);
+
+    return output[0];
+  };
+  const Bai4 = (input: number[]) => {
+    const output: number = input.reduce((acc, item) => acc + item, 0);
+
+    return output;
+  };
+  const Bai5 = (input: number) => {
+    let output: string = "false";
+
+    let count = 0;
+    for (let i = 2; i < input; i++) {
+      if (input % i == 0) count++;
+    }
+    if (count <= 0) {
+      output = "true";
+    }
+    return output;
+  };
+  const Bai6 = (input: number[]) => {
+    const obj: Record<string, number> = {};
+
+    input.forEach((item) => {
+      if (item in obj) {
+        obj[item]++;
+      } else {
+        obj[item] = 1;
+      }
+    });
+
+    const maxKey = Object.entries(obj).reduce(
+      (max, [key, value]) => (value > max[1] ? [key, value] : max),
+      ["", -Infinity]
+    )[0];
+
+    return maxKey;
+  };
+  return (
+    <div>
+      <h1>P1 Trắc nghiệm</h1>
+      <div className="grid grid-cols-10">
+        {Object.entries(tracnghiem.P1).map(([key, value]) => (
+          <div key={key}>
+            <strong className="uppercase">{key}</strong>: {value}
+          </div>
+        ))}
+      </div>
+      <h1 className="pt-10">P2 Thuật toán</h1>
+      <div className="flex flex-col pl-9">
+        <div className="p-2">
+          <div>{`Bài 1: Đảo ngược một chuỗi`}</div>
+          <div>{`Input: "hello" Output: "olleh"`}</div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B1}
+              onChange={(e) => setB1(e.target.value)}
+            />{" "}
+            Output: {Bai1(B1)}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="p-2">
+          <div>{`Bài 2: Kiểm tra chuỗi là Palindrome`}</div>
+          <div>{`Input: "madam" Output: true`}</div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B2}
+              onChange={(e) => setB2(e.target.value)}
+            />{" "}
+            Output: {Bai2(B2)}
+          </div>
+        </div>
+
+        <div className="p-2">
+          <div>{`Bài 3: Tìm số lớn nhất trong mảng`}</div>
+          <div>{` Input: [1, 5, 3, 9, 2] Output: 9`}</div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B3}
+              onChange={(e) => setB3(e.target.value)}
+              placeholder="2,4,1,5,..."
+            />{" "}
+            Output: {Bai3(B3.split(",").map((item) => Number(item)))}
+          </div>
+        </div>
+
+        <div className="p-2">
+          <div>
+            {`            Bài 4: Tính tổng các phần tử trong mảng Input: [1, 2, 3, 4] Output:
+            10`}
+          </div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B4}
+              onChange={(e) => setB4(e.target.value)}
+              placeholder="2,4,1,5,..."
+            />{" "}
+            Output: {Bai4(B4.split(",").map((item) => Number(item)))}
+          </div>
+        </div>
+
+        <div className="p-2">
+          <div>{`Bài 5: Kiểm tra số nguyên tố Input: 7 Output: true`}</div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B5}
+              onChange={(e) => setB5(Number(e.target.value))}
+            />{" "}
+            Output: {Bai5(B5)}
+          </div>
+        </div>
+
+        <div className="p-2">
+          <div>
+            {`            Bài 6: Tìm phần tử xuất hiện nhiều nhất trong mảng Input: [1, 2, 2,
+            3, 1, 2] Output: 2`}
+          </div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B6}
+              onChange={(e) => setB6(e.target.value)}
+              placeholder="2,4,1,5,..."
+            />{" "}
+            Output: {Bai6(B6.split(",").map((item) => Number(item)))}
+          </div>
+        </div>
+
+        <div className="p-2">
+          <div>
+            {`Bài 7: Đếm số ký tự trong chuỗi Input: "hello world" Output: 11`}
+          </div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B7}
+              onChange={(e) => setB7(e.target.value)}
+            />{" "}
+            Output: {B7.trim().split("").length}
+          </div>
+        </div>
+
+        <div className="p-2">
+          <div>
+            {`Bài 7: Đếm số ký tự trong chuỗi Input: "hello world" Output: 11`}
+          </div>
+
+          <div className="pt-2">
+            Input:{" "}
+            <input
+              className="border rounded-md pl-1"
+              value={B7}
+              onChange={(e) => setB7(e.target.value)}
+            />{" "}
+            Output: {B7.trim().split("").length}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
